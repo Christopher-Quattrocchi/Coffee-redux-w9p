@@ -10,6 +10,8 @@ import CoffeeSackDisplay from './CoffeeSackDisplay.js';
 import NewCoffeeSackForm from './NewCoffeeSack.js';
 import { Provider } from 'react-redux';
 import { store } from '../redux/store.js';
+import { useDispatch } from 'react-redux';
+import { addCoffeeSack } from '../redux/coffeeShopSlice.js';
 
 
 
@@ -28,16 +30,27 @@ function App() {
     }
   }
 
+  const dispatch = useDispatch();
+
+  // const handleAddSack = (newSack) => {
+  //   const updatedSack = {
+  //     ...newSack,
+  //     image: arabicaImage,
+  //     name: newSack.productType,
+  //     inventory: parseFloat(newSack.inventory)
+  //   };
+
+  //   setInventory([...inventory, updatedSack]);
+  //   setCoffeeSacks([...coffeeSacks, updatedSack]);
+  // };
+
   const handleAddSack = (newSack) => {
-    const updatedSack = {
+    dispatch(addCoffeeSack({
       ...newSack,
-      image: arabicaImage,
+      image: arabicaImage, 
       name: newSack.productType,
       inventory: parseFloat(newSack.inventory)
-    };
-
-    setInventory([...inventory, updatedSack]);
-    setCoffeeSacks([...coffeeSacks, updatedSack]);
+    }));
   };
 
   const [inventoryUpdated, setInventoryUpdated] = useState(false);

@@ -10,6 +10,8 @@ import arabica from "../img/arabica.jpg";
 import robusta from "../img/robusta.jpg";
 import excelsa from "../img/excelsa.jpg";
 import { useSelector, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
+import { addToCart, updateInventory } from '../redux/coffeeShopSlice.js';
 
 
 class CartControl extends React.Component {
@@ -36,19 +38,42 @@ class CartControl extends React.Component {
     this.setState({ editing: true });
   };
 
+
+
+  // handleNewOrderCreation = (newOrder) => {
+  //   const dispatch = useDispatch();
+  //   const selectedItem = this.state.itemData.find(item => item.productType === newOrder.item);
+  //   if (selectedItem && newOrder.quantity <= selectedItem.inventory) {
+  //     const updatedInventory = selectedItem.inventory - newOrder.quantity;
+  //     this.updateInventory(newOrder.item, updatedInventory);
+
+  //     const newMainCartList = this.state.mainCartList.concat({
+  //       ...newOrder,
+  //       id: v4(),
+  //       image: selectedItem.image || arabica
+  //     });
+
+  //     this.setState({ mainCartList: newMainCartList });
+  //   } else {
+  //     this.setState({ errorMessage: "Can't place order, out of stock" });
+  //   }
+  // };
+
   handleNewOrderCreation = (newOrder) => {
-    const selectedItem = this.state.itemData.find(item => item.productType === newOrder.item);
+    const selectedItem = this.props.inventory.find(item => item.productType === newOrder.item);
     if (selectedItem && newOrder.quantity <= selectedItem.inventory) {
       const updatedInventory = selectedItem.inventory - newOrder.quantity;
-      this.updateInventory(newOrder.item, updatedInventory);
 
-      const newMainCartList = this.state.mainCartList.concat({
+      this.props.updateInventory({ 
+        productType: newOrder.item, 
+        newInventory: updatedInventory 
+      });
+
+      this.props.addToCart({
         ...newOrder,
         id: v4(),
         image: selectedItem.image || arabica
       });
-
-      this.setState({ mainCartList: newMainCartList });
     } else {
       this.setState({ errorMessage: "Can't place order, out of stock" });
     }
@@ -129,7 +154,7 @@ class CartControl extends React.Component {
 
   render() {
 
-    const inventory = useSelector(state => state.coffeeShop.inventory);
+    // const inventory = useSelector(state => state.coffeeShop.inventory);
     const cartStyles = {
       // backgroundColor: "#61dafb",
       textAlign: "center"
@@ -204,6 +229,19 @@ class CartControl extends React.Component {
   }
 }
 
-export default CartControl;
+const mapStateToProps = state => {
+  return {
+    inventory: state.coffeeShop.inventory
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addToCart: order => dispatch(addToCart(order)),
+    updateInventory: inventoryData => dispatch(updateInventory(inventoryData))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CartControl);
 
 
