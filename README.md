@@ -37,13 +37,14 @@ Christopher Quattrocchi
 - npm (Node Package Manager)
 - Git (Version Control)
 - React
+- Redux
 
 ## Live Demo
 [Currency Exchange Live Demo](https://Christopher-Quattrocchi.github.io/Coffee-w8p/)
 (Note: The gh-pages branch exists but may not provide the optimal experience for this project.)
 
 ## Description
-This application is a mock up of a coffee online vendor, with the ability for the user to buy or add coffee.
+This application is a mock up of a coffee online vendor, with the ability for the user to buy or add coffee. This is a redo of an old project, altered to incorporate Redux
 
 ## Setup/Installation Requirements
 - Clone project
