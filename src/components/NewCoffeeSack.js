@@ -23,7 +23,14 @@ function NewCoffeeSackForm({ onAddSack }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(addCoffeeSack(newSack));
-    setNewSack({})
+    setNewSack({
+      productType: '',
+      description: '',
+      origin: '',
+      roast: '',
+      pricePerUnit: 0,
+      inventory: 0
+    });
   };
 
   return (
