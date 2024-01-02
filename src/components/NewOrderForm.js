@@ -95,42 +95,82 @@ function NewOrderForm(props) {
 
   return (
     <React.Fragment>
-      <div style={centerAlign}>
-        <form onSubmit={handleNewOrderFormSubmission}>
-          <h3>Item Catalog</h3>
-          <br />
-          <label htmlFor="items">All Items: </label>
-          <select name="items" id="items" style={dropdownStyle}>
-            {props.inventory.map(sack => (
-              <option key={sack.productType} value={sack.productType}>
-                {sack.productType}
+    <div style={centerAlign}>
+      <form onSubmit={handleNewOrderFormSubmission}>
+        <h3>Item Catalog</h3>
+        <br />
+        <label htmlFor="items">All Items: </label>
+        <select name="items" id="items" style={dropdownStyle}>
+          {['arabica', 'robusta', 'excelsa', ...props.inventory.map(sack => sack.productType)]
+            .filter((value, index, self) => self.indexOf(value) === index)
+            .map(type => (
+              <option key={type} value={type}>
+                {type.charAt(0).toUpperCase() + type.slice(1)} 
               </option>
             ))}
-          </select>
-          <br />
-          <p>
-            Amount to purchase:{" "}
-            <input
-              type="number"
-              name="quantity"
-              placeholder="Quantity"
-              min="0"
-            ></input>
-          </p>
-          <button
-            type="submit"
-            style={isHovered ? buttonHoverStyle : buttonStyle}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-          >
-            Submit
-          </button>
-        </form>
+        </select>
         <br />
-        <div style={currentStyle}>{props.errorMessage}</div>
-      </div>
-    </React.Fragment>
-  );
+        <p>
+          Amount to purchase:{" "}
+          <input
+            type="number"
+            name="quantity"
+            placeholder="Quantity"
+            min="0"
+          ></input>
+        </p>
+        <button
+          type="submit"
+          style={isHovered ? buttonHoverStyle : buttonStyle}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          Submit
+        </button>
+      </form>
+      <br />
+      <div style={currentStyle}>{props.errorMessage}</div>
+    </div>
+  </React.Fragment>
+);
+
+  //   <React.Fragment>
+  //     <div style={centerAlign}>
+  //       <form onSubmit={handleNewOrderFormSubmission}>
+  //         <h3>Item Catalog</h3>
+  //         <br />
+  //         <label htmlFor="items">All Items: </label>
+  //         <select name="items" id="items" style={dropdownStyle}>
+  //           {props.inventory.map(sack => (
+  //             <option key={sack.productType} value={sack.productType}>
+  //               {sack.productType}
+  //             </option>
+  //           ))}
+  //         </select>
+  //         <br />
+  //         <p>
+  //           Amount to purchase:{" "}
+  //           <input
+  //             type="number"
+  //             name="quantity"
+  //             placeholder="Quantity"
+  //             min="0"
+  //           ></input>
+  //         </p>
+  //         <button
+  //           type="submit"
+  //           style={isHovered ? buttonHoverStyle : buttonStyle}
+  //           onMouseEnter={() => setIsHovered(true)}
+  //           onMouseLeave={() => setIsHovered(false)}
+  //         >
+  //           Submit
+  //         </button>
+  //       </form>
+  //       <br />
+  //       <div style={currentStyle}>{props.errorMessage}</div>
+  //     </div>
+  //   </React.Fragment>
+  // );
 }
 NewOrderForm.propTypes = {
   onNewOrderCreation: PropTypes.func,

@@ -60,6 +60,7 @@ class CartControl extends React.Component {
   // };
 
   handleNewOrderCreation = (newOrder) => {
+    console.log(this.props.inventory)
     const selectedItem = this.props.inventory.find(item => item.productType === newOrder.item);
     if (selectedItem && newOrder.quantity <= selectedItem.inventory) {
       const updatedInventory = selectedItem.inventory - newOrder.quantity;

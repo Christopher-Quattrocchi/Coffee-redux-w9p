@@ -1,7 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  inventory: [],
+  inventory: [
+    { productType: "arabica", description: "Sweet, fruity taste. High acidity.", origin: "Latin America", roast: "Medium", pricePerUnit: 20, inventory: 130 },
+    { productType: "robusta", description: "Strong, bitter, nutty flavor.", origin: "Western Africa", roast: "Dark", pricePerUnit: 25, inventory: 130 },
+    { productType: "excelsa", description: "Tart, fruity.", origin: "Southeast Asia", roast: "Light", pricePerUnit: 30, inventory: 130 }
+  ],
   orders: [],
   cart: [],
 };
